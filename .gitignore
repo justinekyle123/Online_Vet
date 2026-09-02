@@ -1,0 +1,25 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.pem
+certs/
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Frontend
+frontend/dist/
+
+# Logs & OS junk
+*.log
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

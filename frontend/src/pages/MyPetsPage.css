@@ -1,0 +1,111 @@
+/* ---------- My pets page ---------- */
+.mypets-actions {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
+}
+.mypets-add {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--ink); color: white; border: none; border-radius: 24px;
+  padding: 11px 20px; font-size: 13.5px; font-weight: 600; font-family: inherit; cursor: pointer;
+  transition: transform .3s var(--ease-out), box-shadow .3s ease, background .25s ease;
+}
+.mypets-add svg { width: 15px; height: 15px; }
+.mypets-add:hover {
+  background: var(--coral); box-shadow: 0 12px 26px rgba(238, 114, 92, .34);
+  transform: translateY(-2px);
+}
+
+/* Add-pet form */
+.mypets-form { margin-bottom: 26px; }
+.mypets-error {
+  background: #fdecea; border: 1px solid #f5c6bf; color: #a83a2c;
+  border-radius: 12px; padding: 11px 14px; font-size: 13.5px; line-height: 1.5;
+  margin-bottom: 16px;
+}
+.mypets-form-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  margin-bottom: 22px;
+}
+.mypets-field { display: grid; gap: 7px; }
+.mypets-field label { font-size: 13px; font-weight: 600; color: var(--ink); }
+.mypets-field label span { color: var(--coral); }
+.mypets-field input, .mypets-field select {
+  width: 100%; padding: 11px 13px; font-size: 14.5px; font-family: inherit; color: var(--ink);
+  background: var(--cream); border: 1.5px solid var(--line); border-radius: 12px;
+  transition: border-color .25s ease, background .25s ease, box-shadow .25s ease;
+}
+.mypets-field input::placeholder { color: #9aa8a3; }
+.mypets-field input:focus, .mypets-field select:focus {
+  outline: none; border-color: var(--coral); background: white;
+  box-shadow: 0 0 0 3px var(--coral-soft);
+}
+.mypets-submit {
+  width: 100%; padding: 12px 20px;
+  background: var(--ink); color: white; border: none; border-radius: 24px;
+  font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer;
+  transition: transform .3s var(--ease-out), box-shadow .3s ease, background .25s ease, opacity .25s ease;
+}
+.mypets-submit:hover:not(:disabled) {
+  background: var(--coral); box-shadow: 0 14px 30px rgba(238, 114, 92, .34); transform: translateY(-2px);
+}
+.mypets-submit:disabled { opacity: .6; cursor: not-allowed; }
+
+/* Pet list */
+.mypets-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.mypets-item {
+  display: flex; align-items: center; gap: 16px; padding: 18px 20px;
+}
+.mypets-avatar {
+  width: 52px; height: 52px; border-radius: 16px; flex-shrink: 0;
+  background: var(--mint); display: grid; place-items: center; font-size: 25px;
+  transition: transform .4s var(--ease-out), background .3s ease;
+}
+.mypets-item:hover .mypets-avatar { transform: rotate(-8deg) scale(1.08); background: var(--mint-deep); }
+.mypets-info { display: grid; gap: 3px; min-width: 0; }
+.mypets-info strong { font-size: 16px; letter-spacing: -.2px; }
+.mypets-info span { color: var(--muted); font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mypets-meta {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; justify-content: flex-end;
+  max-width: 40%;
+}
+.mypets-meta span {
+  background: var(--cream); border: 1px solid var(--line); color: var(--muted);
+  border-radius: 20px; padding: 4px 11px; font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+.mypets-delete {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0;
+  border: 1.5px solid var(--line); background: white; color: var(--muted); cursor: pointer;
+  transition: border-color .2s ease, color .2s ease, background .2s ease, transform .25s var(--ease-out);
+  font-family: inherit;
+}
+.mypets-delete svg { width: 16px; height: 16px; }
+.mypets-delete:hover { border-color: #f0b0a6; color: #a83a2c; background: #fdecea; transform: translateY(-1px); }
+.mypets-item.is-confirming .mypets-delete {
+  width: auto; padding: 0 13px; border-color: var(--coral); background: var(--coral); color: white;
+}
+.mypets-delete span { font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+
+/* States */
+.mypets-state { text-align: center; padding: 44px 26px; }
+.mypets-state .pets-empty { margin: 0; }
+
+/* ---------- Large screens (≥1100px): spread to fill the window ---------- */
+@media (min-width: 1100px) {
+  .mypets-actions { justify-content: space-between; }
+  .mypets-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1200px) {
+  .mypets-form-grid { grid-template-columns: repeat(3, 1fr); }
+  .mypets-form .mypets-submit { width: auto; padding: 12px 34px; }
+}
+@media (min-width: 1600px) {
+  .mypets-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .mypets-form-grid { grid-template-columns: 1fr; gap: 14px; }
+  .mypets-item { flex-wrap: wrap; }
+  .mypets-meta { max-width: none; width: 100%; margin-left: 0; justify-content: flex-start; order: 3; }
+  .mypets-delete { margin-left: auto; }
+}

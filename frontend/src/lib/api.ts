@@ -127,3 +127,26 @@ export interface Pet {
 export function fetchPets(ownerId: number): Promise<{ data: Pet[] }> {
   return request(`/api/pets?owner_id=${ownerId}`)
 }
+
+export interface PetInput {
+  name: string
+  species: Pet['species']
+  breed?: string
+  sex?: Pet['sex']
+  date_of_birth?: string
+  weight_kg?: string
+  notes?: string
+}
+
+/** Creates a pet owned by the given user id. */
+export function createPet(ownerId: number, input: PetInput): Promise<{ data: Pet }> {
+  return request('/api/pets', {
+    method: 'POST',
+    body: JSON.stringify({ owner_id: ownerId, ...input }),
+  })
+}
+
+/** Hard-deletes a pet (server also removes dependent records). */
+export function deletePet(petId: number): Promise<void> {
+  return request(`/api/pets/${petId}`, { method: 'DELETE' })
+}

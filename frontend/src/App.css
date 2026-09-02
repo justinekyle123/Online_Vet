@@ -106,7 +106,9 @@ main { max-width: 1240px; margin: auto; padding: 0 5.5%; overflow: hidden; }
 .nav-user {
   font-size: 14px; font-weight: 600; color: var(--ink); max-width: 140px;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  transition: color .25s ease;
 }
+.nav-user:hover { color: var(--coral); }
 .nav-auth-logout {
   background: none; border: none; padding: 0; cursor: pointer;
   color: var(--muted); font-size: 14px; font-weight: 600; font-family: inherit;
@@ -379,18 +381,25 @@ footer > div:last-child { display: flex; align-items: center; gap: 28px; font-si
   .marquee-item { opacity: 1; transform: none; }
 }
 @media (max-width: 900px) {
+  /* Header: drop the section links so brand + auth + CTA fit cleanly */
+  .navbar { height: 78px; }
+  .navbar-scrolled { height: 62px; }
+  .nav-links { display: none; }
   .about { grid-template-columns: 1fr; gap: 40px; }
   .testimonial-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 700px) {
+  html { scroll-padding-top: 72px; }
   main { padding: 0 6%; }
-  .nav-links { display: none; }
+  .navbar { height: 64px; }
+  .navbar-scrolled { height: 56px; }
+  .brand { font-size: 20px; }
   .nav-auth { gap: 12px; }
   .nav-auth-signup { padding: 8px 14px; }
   .nav-user { max-width: 90px; }
   .nav-button { padding: 10px 14px; }
-  .hero-section { grid-template-columns: 1fr; }
-  .hero-copy { padding: 55px 0 15px; }
+  .hero-section { grid-template-columns: 1fr; min-height: 0; }
+  .hero-copy { padding: 40px 0 10px; }
   .headline { letter-spacing: -2.5px; }
   .hero-art { height: 360px; margin: 20px 0 50px; }
   .pet-cat { font-size: 105px; top: 120px; }
@@ -412,4 +421,32 @@ footer > div:last-child { display: flex; align-items: center; gap: 28px; font-si
   footer::after { font-size: 64px; right: 6px; top: -22px; }
   footer > div:last-child { align-items: flex-start; flex-direction: column; gap: 15px; }
   .to-top { right: 16px; bottom: 16px; width: 42px; height: 42px; }
+}
+@media (max-width: 640px) {
+  /* Header: keep Log in / Sign up, drop the redundant CTA (hero + footer cover it) */
+  .nav-button { display: none; }
+  .nav-auth-login { font-size: 13px; white-space: nowrap; }
+  .nav-auth-signup { font-size: 12.5px; }
+  .hero-actions { flex-wrap: wrap; gap: 18px; }
+}
+@media (max-width: 420px) {
+  .headline { font-size: clamp(34px, 9vw, 44px); letter-spacing: -2px; }
+  .hero-description { font-size: 15px; }
+  .hero-actions { gap: 16px; margin-top: 26px; }
+  .primary-button { padding: 13px 18px; }
+  .text-button { font-size: 12.5px; }
+  .stats { gap: 12px; margin-top: 40px; }
+  .stat strong { font-size: 20px; }
+  .stat small { font-size: 10.5px; line-height: 1.35; }
+  .stat + .stat::before { left: -6px; }
+  .hero-art { height: 300px; margin: 14px 0 40px; }
+  .pet-cat { font-size: 88px; top: 108px; }
+  .pet-rabbit { font-size: 72px; top: 132px; }
+  .pet-bird { font-size: 46px; top: 62px; }
+  .flower-one { font-size: 38px; }
+  .flower-two { font-size: 24px; }
+  .section-head h2 { margin: 16px 0 38px; }
+  .testimonial-grid figure { padding: 22px; }
+  .about-card { height: 260px; font-size: 100px; }
+  .about-badge { padding: 12px 14px; font-size: 12px; bottom: 24px; }
 }

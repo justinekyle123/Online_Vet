@@ -103,3 +103,27 @@ export function fetchCurrentUser(): Promise<{ data: AuthUser }> {
 export function logoutRequest(): Promise<void> {
   return request('/api/auth/logout', { method: 'POST' })
 }
+
+/* ---------------- Pets ---------------- */
+
+export interface Pet {
+  id: number
+  owner_id: number
+  name: string
+  species: 'dog' | 'cat' | 'bird' | 'rabbit' | 'reptile' | 'other'
+  breed: string | null
+  sex: 'male' | 'female' | 'unknown'
+  date_of_birth: string | null
+  color: string | null
+  microchip_number: string | null
+  weight_kg: string | null
+  allergies: string | null
+  notes: string | null
+  created_at: string
+  updated_at: string
+}
+
+/** Fetches the pets owned by the given user id. */
+export function fetchPets(ownerId: number): Promise<{ data: Pet[] }> {
+  return request(`/api/pets?owner_id=${ownerId}`)
+}

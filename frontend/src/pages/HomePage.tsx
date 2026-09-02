@@ -28,7 +28,7 @@ function HomePage() {
         <div className="nav-auth">
           {user ? (
             <>
-              <span className="nav-user">Hi, {user.first_name}</span>
+              <Link className="nav-user" to="/">Hi, {user.first_name}</Link>
               <button className="nav-auth-logout" onClick={() => void logout()}>Log out</button>
             </>
           ) : (

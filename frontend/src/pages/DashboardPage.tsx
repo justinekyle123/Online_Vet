@@ -3,6 +3,7 @@ import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/auth-context'
 import { fetchPets } from '../lib/api'
 import type { Pet } from '../lib/api'
+import { Footer } from '../components/layout/Footer'
 import './DashboardPage.css'
 
 const SPECIES_LABEL: Record<Pet['species'], string> = {
@@ -322,6 +323,8 @@ function DashboardPage() {
           </section>
         </div>
       </main>
+
+      <Footer />
     </div>
   )
 }

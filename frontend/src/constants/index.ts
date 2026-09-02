@@ -22,9 +22,6 @@ export const MARQUEE_ITEMS = [
   'Dental hygiene',
   'Urgent support',
   'Grooming',
-  'Nutrition plans',
-  'Surgery',
-  'Fear-free visits',
 ]
 
 export const NAV_ITEMS: NavItem[] = [

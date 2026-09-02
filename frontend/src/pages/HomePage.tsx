@@ -7,7 +7,8 @@ import { Reveal, Stat } from '../components/ui/Reveal'
 import { Headline } from '../components/ui/Headline'
 import { HeroArt } from '../components/sections/HeroArt'
 import { Marquee } from '../components/sections/Marquee'
-import { NAV_ITEMS } from '../constants'
+import { MARQUEE_ITEMS, NAV_ITEMS } from '../constants'
+import aboutPet from '../assets/landing/pet2.jpg'
 
 function HomePage() {
   const content = useLandingContent()
@@ -21,9 +22,24 @@ function HomePage() {
       <nav className={`navbar${ui.scrolled ? ' navbar-scrolled' : ''}`}>
         <a className="brand" href="#top"><span>✦</span> {content.brand}</a>
         <div className="nav-links">
-          {NAV_ITEMS.map(({ id, label }) => (
-            <a key={id} className={ui.active === id ? 'active' : ''} href={`#${id}`}>{label}</a>
-          ))}
+          {NAV_ITEMS.map(({ id, label }) =>
+            id === 'services' ? (
+              <div key={id} className="nav-item">
+                <a className={ui.active === id ? 'active' : ''} href={`#${id}`}>
+                  {label} <span className="nav-caret" aria-hidden="true">▾</span>
+                </a>
+                <div className="nav-dropdown" role="menu" aria-label="Services">
+                  {MARQUEE_ITEMS.map((service) => (
+                    <Link key={service} className="nav-dropdown-item" to="/login" role="menuitem">
+                      {service}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <a key={id} className={ui.active === id ? 'active' : ''} href={`#${id}`}>{label}</a>
+            ),
+          )}
         </div>
         <div className="nav-auth">
           {user ? (
@@ -96,8 +112,8 @@ function HomePage() {
       </section>
 
       <section className="about" id="about">
-        <Reveal className="about-art" role="img" aria-label="A calm dog resting">
-          <div className="about-card">🐕</div>
+        <Reveal className="about-art">
+          <div className="about-card"><img src={aboutPet} alt="A calm dog resting at PawCare" /></div>
           <div className="about-badge">✦ Care that feels like home</div>
         </Reveal>
         <Reveal className="about-copy" delay={150}>

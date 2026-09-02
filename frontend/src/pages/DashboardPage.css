@@ -263,6 +263,7 @@
     max-width: 1080px; margin: 0 auto;
     padding: 56px 4% 90px;
   }
+  .site-footer { grid-column: 2; grid-row: 2; }
   .dashboard-hero { padding: 8px 0 34px; }
   .dashboard-avatar { width: 82px; height: 82px; font-size: 28px; }
   .dashboard-grid { grid-template-columns: 300px 1fr; }

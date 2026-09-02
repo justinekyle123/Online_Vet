@@ -10,6 +10,7 @@ function LoginPage() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
 
@@ -40,7 +41,18 @@ function LoginPage() {
     <div className="auth-page">
       <Link className="auth-brand" to="/"><span>✦</span> PawCare</Link>
 
-      <main className="auth-card">
+      <main className="auth-layout">
+        <aside className="auth-visual-copy">
+          <span>✦</span>
+          <strong>Your pet&apos;s care, all in one place.</strong>
+          <p>Track visits, manage pet profiles, and stay close to the care they deserve.</p>
+          <div className="auth-benefit-list">
+            <span>✚ Easy appointment planning</span>
+            <span>✚ Secure pet records</span>
+            <span>✚ Care that feels personal</span>
+          </div>
+        </aside>
+        <section className="auth-card">
         <p className="auth-eyebrow">Welcome back</p>
         <h1>Log in to PawCare</h1>
         <p className="auth-subtitle">Good to see you again — manage your pet&apos;s care in one place.</p>
@@ -64,13 +76,22 @@ function LoginPage() {
             <label htmlFor="login-password">Password</label>
             <input
               id="login-password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               autoComplete="current-password"
               placeholder="Your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <button
+              className="password-toggle"
+              type="button"
+              onClick={() => setShowPassword((visible) => !visible)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              aria-pressed={showPassword}
+            >
+              {showPassword ? 'Hide' : 'Show'}
+            </button>
           </div>
           <button className="auth-submit" type="submit" disabled={submitting}>
             {submitting ? 'Logging in…' : 'Log in'}
@@ -80,6 +101,7 @@ function LoginPage() {
         <p className="auth-switch">
           Don&apos;t have an account? <Link to="/register">Sign up</Link>
         </p>
+        </section>
       </main>
     </div>
   )

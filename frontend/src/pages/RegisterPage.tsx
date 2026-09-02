@@ -26,6 +26,8 @@ function RegisterPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [googleNote, setGoogleNote] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
@@ -74,7 +76,18 @@ function RegisterPage() {
     <div className="auth-page">
       <Link className="auth-brand" to="/"><span>✦</span> PawCare</Link>
 
-      <main className="auth-card">
+      <main className="auth-layout">
+        <aside className="auth-visual-copy">
+          <span>✦</span>
+          <strong>Everything they need. All in one place.</strong>
+          <p>Create your PawCare account and make every visit feel simpler.</p>
+          <div className="auth-benefit-list">
+            <span>✚ Keep pet profiles organized</span>
+            <span>✚ Follow their care journey</span>
+            <span>✚ Stay ready for every visit</span>
+          </div>
+        </aside>
+        <section className="auth-card">
         <p className="auth-eyebrow">Create your account</p>
         <h1>Join PawCare</h1>
         <p className="auth-subtitle">Sign up to book visits and keep your pet&apos;s care close at hand.</p>
@@ -133,25 +146,43 @@ function RegisterPage() {
             <label htmlFor="register-password">Password</label>
             <input
               id="register-password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               autoComplete="new-password"
               placeholder="At least 8 characters"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <button
+              className="password-toggle"
+              type="button"
+              onClick={() => setShowPassword((visible) => !visible)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              aria-pressed={showPassword}
+            >
+              {showPassword ? 'Hide' : 'Show'}
+            </button>
           </div>
           <div className="auth-field">
             <label htmlFor="register-confirm-password">Confirm password</label>
             <input
               id="register-confirm-password"
-              type="password"
+              type={showConfirmPassword ? 'text' : 'password'}
               autoComplete="new-password"
               placeholder="Repeat your password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
+            <button
+              className="password-toggle"
+              type="button"
+              onClick={() => setShowConfirmPassword((visible) => !visible)}
+              aria-label={showConfirmPassword ? 'Hide password confirmation' : 'Show password confirmation'}
+              aria-pressed={showConfirmPassword}
+            >
+              {showConfirmPassword ? 'Hide' : 'Show'}
+            </button>
           </div>
           <button className="auth-submit" type="submit" disabled={submitting}>
             {submitting ? 'Creating account…' : 'Create account'}
@@ -161,6 +192,7 @@ function RegisterPage() {
         <p className="auth-switch">
           Already have an account? <Link to="/login">Log in</Link>
         </p>
+        </section>
       </main>
     </div>
   )

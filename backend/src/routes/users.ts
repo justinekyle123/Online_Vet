@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import type { RowDataPacket, ResultSetHeader } from 'mysql2/promise';
 import { pool } from '../db';
+import { hashPassword } from '../lib/password';
 
 export const usersRouter = Router();
 
@@ -64,12 +65,14 @@ interface CreateUserBody {
   email?: unknown;
   phone?: unknown;
   role?: unknown;
+  password?: unknown;
 }
 
 const VALID_ROLES = ['owner', 'veterinarian', 'staff', 'admin'];
 
 function validateUserBody(body: CreateUserBody): { error: string } | { values: {
   first_name: string; last_name: string; email: string; phone: string | null; role: string;
+  password: string | null;
 } } {
   const { first_name, last_name, email, role } = body;
   if (typeof first_name !== 'string' || first_name.trim() === '') return { error: 'first_name is required' };
@@ -78,6 +81,12 @@ function validateUserBody(body: CreateUserBody): { error: string } | { values: {
   if (role !== undefined && !VALID_ROLES.includes(role as string)) {
     return { error: `role must be one of: ${VALID_ROLES.join(', ')}` };
   }
+  const password = body.password;
+  if (password !== undefined) {
+    if (typeof password !== 'string' || password.length < 8) {
+      return { error: 'password must be at least 8 characters' };
+    }
+  }
   return {
     values: {
       first_name: first_name.trim(),
@@ -85,6 +94,7 @@ function validateUserBody(body: CreateUserBody): { error: string } | { values: {
       email: email.toLowerCase().trim(),
       phone: typeof body.phone === 'string' && body.phone.trim() !== '' ? body.phone.trim() : null,
       role: (role as string) ?? 'owner',
+      password: typeof password === 'string' ? password : null,
     },
   };
 }
@@ -99,10 +109,11 @@ usersRouter.post('/', async (req, res, next) => {
 
   try {
     const { values } = result;
+    const passwordHash = values.password ? await hashPassword(values.password) : 'pending_setup';
     const [insert] = await pool.query<ResultSetHeader>(
       `INSERT INTO users (first_name, last_name, email, phone, role, password_hash)
        VALUES (?, ?, ?, ?, ?, ?)`,
-      [values.first_name, values.last_name, values.email, values.phone, values.role, 'pending_setup'],
+      [values.first_name, values.last_name, values.email, values.phone, values.role, passwordHash],
     );
     const [rows] = await pool.query<UserRow[]>(`SELECT ${SELECT_COLUMNS} FROM users WHERE id = ?`, [insert.insertId]);
     res.status(201).json({ data: rows[0] });

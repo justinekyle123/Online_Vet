@@ -88,6 +88,32 @@ main { max-width: 1240px; margin: auto; padding: 0 5.5%; overflow: hidden; }
 .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
 .nav-links a.active::after { transform: scaleX(1); transform-origin: left; }
 
+.nav-auth { display: flex; align-items: center; gap: 18px; }
+.nav-auth-login {
+  color: var(--muted); font-size: 14px; font-weight: 600;
+  transition: color .25s ease, transform .3s var(--ease-out);
+}
+.nav-auth-login:hover { color: var(--ink); transform: translateY(-1px); }
+.nav-auth-signup {
+  background: var(--coral-soft); color: var(--coral-deep); border-radius: 24px;
+  padding: 10px 18px; font-size: 13px; font-weight: 600;
+  transition: background .25s ease, color .25s ease, transform .3s var(--ease-out), box-shadow .3s ease;
+}
+.nav-auth-signup:hover {
+  background: var(--coral); color: white; box-shadow: 0 10px 22px rgba(238, 114, 92, .3);
+  transform: translateY(-2px);
+}
+.nav-user {
+  font-size: 14px; font-weight: 600; color: var(--ink); max-width: 140px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.nav-auth-logout {
+  background: none; border: none; padding: 0; cursor: pointer;
+  color: var(--muted); font-size: 14px; font-weight: 600; font-family: inherit;
+  transition: color .25s ease, transform .3s var(--ease-out);
+}
+.nav-auth-logout:hover { color: var(--coral); transform: translateY(-1px); }
+
 .nav-button, .primary-button {
   position: relative; overflow: hidden; display: inline-block;
   background: var(--ink); color: white; border-radius: 24px;
@@ -359,6 +385,9 @@ footer > div:last-child { display: flex; align-items: center; gap: 28px; font-si
 @media (max-width: 700px) {
   main { padding: 0 6%; }
   .nav-links { display: none; }
+  .nav-auth { gap: 12px; }
+  .nav-auth-signup { padding: 8px 14px; }
+  .nav-user { max-width: 90px; }
   .nav-button { padding: 10px 14px; }
   .hero-section { grid-template-columns: 1fr; }
   .hero-copy { padding: 55px 0 15px; }

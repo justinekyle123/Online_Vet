@@ -34,7 +34,9 @@ async function main() {
   });
 
   const sqlPath = path.join(__dirname, '..', '..', 'db', 'schema.sql');
-  const sql = readFileSync(sqlPath, 'utf8');
+  let sql = readFileSync(sqlPath, 'utf8');
+  // schema.sql hardcodes `veterinary_app`; target the database configured in .env instead
+  sql = sql.replaceAll('veterinary_app', env.dbName);
 
   const statements = splitStatements(sql);
   console.log(`Applying ${statements.length} statements from db/schema.sql to ${env.dbHost}:${env.dbPort}...`);

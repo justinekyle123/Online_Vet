@@ -9,6 +9,8 @@ export const env = {
   dbName: process.env.DB_NAME || 'veterinary_app',
   dbSsl: process.env.DB_SSL === 'true',
   dbCa: process.env.DB_CA,
+  jwtSecret: process.env.JWT_SECRET || 'dev-only-secret-change-me',
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
 };
 
 if (!Number.isInteger(env.port) || env.port < 1 || env.port > 65535) {

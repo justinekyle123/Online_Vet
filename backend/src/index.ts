@@ -5,6 +5,7 @@ import { env } from './config/env';
 import { pool } from './db';
 import { usersRouter } from './routes/users';
 import { petsRouter } from './routes/pets';
+import { authRouter } from './routes/auth';
 
 const app = express();
 
@@ -14,7 +15,7 @@ app.use(express.json());
 app.get('/', (_req, res) => {
   res.json({
     message: 'Veterinary API',
-    endpoints: ['GET /api/health', 'GET /api/health/db', 'GET /api/landing', '/api/users', '/api/pets'],
+    endpoints: ['GET /api/health', 'GET /api/health/db', 'GET /api/landing', '/api/auth/*', '/api/users', '/api/pets'],
   });
 });
 
@@ -76,6 +77,7 @@ app.get('/api/health/db', async (_req, res) => {
   }
 });
 
+app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/pets', petsRouter);
 
